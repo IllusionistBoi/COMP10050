@@ -15,6 +15,8 @@
 #define NUM_ROWS 6
 //number of columns of the board
 #define NUM_COLUMNS 9
+//number of maximum Player
+#define MAX_PLAYER 6
 
 
 //types of squares
@@ -49,7 +51,8 @@ typedef struct square{
  * such as a name and a color.
  */
 typedef struct player{
-
+    char *name;
+    enum color pcol;
 
 }player;
 

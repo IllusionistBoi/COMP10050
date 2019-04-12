@@ -39,8 +39,16 @@ void initialize_board(square board[NUM_ROWS][NUM_COLUMNS]){
  * Input: the array of players to be initialized
  * Output: The number of players of the game
  */
-int initialize_players(player players[]){
-
-    //YOU WILL NEED TO IMPLEMENT THIS FUNCTION IN THIS LAB
-        return 0;
+int initialize_players(player players[MAX_PLAYER]){
+    int cnt=0;
+    char name[30];
+    while(cnt<6){
+      //getting input from the user in player[cnt].name
+      printf("Enter The Name\n");
+      scanf("%s", &name);
+      players[cnt].name=name;
+      players[cnt].pcol=color[cnt];
+      cnt++;
     }
+    return cnt;
+  }

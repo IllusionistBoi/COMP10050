@@ -33,7 +33,8 @@ char print_token(token *t){
  */
 void print_board(square board[NUM_ROWS][NUM_COLUMNS]){
     printf("                THE BOARD\n");
-    for(int i =0; i < NUM_ROWS; i++){
+    int i;
+	for(i =0; i < NUM_ROWS; i++){
 
         //prints an horizontal line
         printLine();
@@ -42,7 +43,8 @@ void print_board(square board[NUM_ROWS][NUM_COLUMNS]){
         char c = '\0' ;
         //if the square (i,j) is occupied,
         //c is assigned the initial of the color of the token that occupies the square
-        for (int j = 0; j < NUM_COLUMNS; j++){
+        int j;
+		for (j = 0; j < NUM_COLUMNS; j++){
             if(board[i][j].stack != NULL){
                 c = print_token(board[i][j].stack);
             }
