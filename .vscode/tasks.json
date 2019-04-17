@@ -1,0 +1,25 @@
+{
+  "tasks": [
+    {
+      "type": "shell",
+      "label": "gcc build active file",
+      "command": "gcc",
+      "args": [
+        "-g",
+        "~/Desktop/Ronit/COMP10050/main1.c",
+        "~/Desktop/Ronit/COMP10050/game_init.c",
+        "~/Desktop/Ronit/COMP10050/game_logic.c",
+        "-o",
+        "~/Desktop/Ronit/COMP10050/main1"
+      ],
+      "options": {
+        "cwd": "/usr/bin"
+      },
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    }
+  ],
+  "version": "2.0.0"
+}

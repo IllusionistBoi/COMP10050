@@ -7,6 +7,7 @@
 
 #include "game_init.h"
 #include <stdio.h>
+#include <string.h>
 
 
 /*
@@ -27,9 +28,29 @@ void initialize_board(square board[NUM_ROWS][NUM_COLUMNS]){
                 //creates a normal square otherwise
                 board[i][j].type = NORMAL;
             }
-            board[i][j].stack = NULL;
+            board[i][j].stack_top = NULL;
         }
     }
+}
+
+enum color get_player_color(int i) {
+  enum color col;
+  switch(i) {
+      case 0: col =  RED;
+              break;
+      case 1: col = BLU;
+              break;
+      case 2: col = GREEN;
+              break;
+      case 3: col = YELLOW;
+              break;
+      case 4: col = PINK;
+              break;
+      case 5: col = ORANGE;
+              break;
+      default: break;
+  }
+  return col;
 }
 
 
@@ -39,16 +60,21 @@ void initialize_board(square board[NUM_ROWS][NUM_COLUMNS]){
  * Input: the array of players to be initialized
  * Output: The number of players of the game
  */
-int initialize_players(player players[MAX_PLAYER]){
-    int cnt=0;
-    char name[30];
-    while(cnt<6){
-      //getting input from the user in player[cnt].name
-      printf("Enter The Name\n");
-      scanf("%s", &name);
-      players[cnt].name=name;
-      players[cnt].pcol=color[cnt];
-      cnt++;
+int initialize_players(player players[]) {
+    int numOfPlayers;
+    enum color col;
+
+    char name[20];
+    printf("\nHow many Players[4:6]?");
+    scanf("%d",&numOfPlayers);
+    for(int i=0; i<numOfPlayers; i++) {
+      printf("\nDetails of player %d:",i+1);
+      printf("\nName: ");
+      scanf("%s", name);
+      strcpy(players[i].name, name);
+      col = get_player_color(i);
+      printf("Color %d\n", i);
+      players[i].col = col;
     }
-    return cnt;
+    return numOfPlayers;
   }
