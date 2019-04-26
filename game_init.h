@@ -46,7 +46,6 @@ typedef struct square{
 }square;
 
 
-
 /*
  * You need to fill this data structure
  * with the information about the player

@@ -92,9 +92,11 @@ void place_tokens(square board[NUM_ROWS][NUM_COLUMNS], player players[], int num
     int minNumOfTokens = 0;
     int selectedSquare = 0;
 
-    for(int i=0; i<4 ; i++) {
-      for(int j=0; j< numPlayers; j++) {
-        do {
+    int i,j;
+	for(i=0; i<4 ; i++) {
+      for( j=0; j< numPlayers; j++) {
+        cont :
+		do {
           printf("\nPlayer %d please select a square: ", j+1);
           scanf("%d", &selectedSquare);
         } while(selectedSquare > 5 || selectedSquare < 0);
@@ -112,13 +114,18 @@ void place_tokens(square board[NUM_ROWS][NUM_COLUMNS], player players[], int num
           board[selectedSquare][0].stack_top = t;
           board[selectedSquare][0].numTokens++;
         }
-        // printf("\nColor of token is: %d\n", board[selectedSquare][0].stack -> col);
+        else {
+        	goto cont;
+		}
+		print_board(board);
+		// printf("\nColor of token is: %d\n", board[selectedSquare][0].stack -> col);
 
         if(((numPlayers * i)+ j + 1)%NUM_ROWS == 0)
           minNumOfTokens++;
       }
     }
 }
+
 
 
 /*
@@ -152,7 +159,7 @@ void play_game(square board[NUM_ROWS][NUM_COLUMNS], player players[], int numPla
 
       printf("\n\nPlayer %s turn with color %c.", players[i].name, print_player_col(players[i]));
       // 1. Roll the dice
-
+		int colFull;
       int lucky = (rand() %  (5 - 0 + 1)) + 0;
       printf("\nRolling Dice and your Lucky number is: %d\n", lucky );
 
@@ -166,7 +173,7 @@ void play_game(square board[NUM_ROWS][NUM_COLUMNS], player players[], int numPla
         printf("\nEnter the row and column of the piece to be sidestepped and direction(0->Up and 1->Down): ");
         scanf("%d %d %d",&sRow,&sCol,&dir);
         token *st = board[sRow][sCol].stack_top;
-        board[sRow][sRow].stack_top = board[sRow][sRow].stack_top->next;
+        board[sRow][sCol].stack_top = board[sRow][sCol].stack_top->next;
         // Validation not done on dir
         if(dir == 0){
           st -> next = board[sRow-1][sCol].stack_top;
@@ -188,14 +195,32 @@ void play_game(square board[NUM_ROWS][NUM_COLUMNS], player players[], int numPla
         }
       }
 
-      // Token is being moved from one square to another.
-      token *t = board[lucky][moveCol].stack_top;
-      board[lucky][moveCol].stack_top = board[lucky][moveCol].stack_top -> next;
-      t->next = NULL;
-      moveCol++;
-
-      board[lucky][moveCol].stack_top = t;
-
+      // Token is being moved from one square to another (Obstacel case included too!).
+	if(board[lucky][moveCol].type != OBSTACLE) {
+	token *t = board[lucky][moveCol].stack_top;
+	board[lucky][moveCol].stack_top = board[lucky][moveCol].stack_top -> next;
+	t->next = NULL;
+	moveCol++;
+	
+	board[lucky][moveCol].stack_top = t;
+	
+	} else {
+	for(l=0; l<NUM_ROWS; l++) {
+	if(board[l][moveCol].stack_top == NULL) {
+	colFull = 0;
+	break;
+	}
+	}
+	if(colFull) {
+	token *t = board[lucky][moveCol].stack_top;
+	board[lucky][moveCol].stack_top = board[lucky][moveCol].stack_top -> next;
+	t->next = NULL;
+	moveCol++;
+	board[lucky][moveCol].stack_top = t;
+	} else {
+	printf("\nSorry token is on Obstacle and can't move ahead!!!");
+	}
+	}
       // After moving the pieces, show the board again.
       print_board(board);
 
