@@ -14,6 +14,7 @@
 #include "game_init.h"
 #include "game_logic.h"
 #include <stdio.h>
+#include <time.h>
 
 int main(int argc, char** argv) {
 	

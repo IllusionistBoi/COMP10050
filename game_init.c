@@ -74,14 +74,17 @@ int initialize_players(player players[]) {
 
     /*	*/
     Again :
-	printf("\n How Many Players Will Play The Game [2:6] ? ");
+	printf("\n How Many Players Will Play The Game [2:6] :) ");
     scanf("%d",&numOfPlayers);
+    
+    /*It checks if the player entered by user is within the rule for the game Min-2 Max-6*/
     if(numOfPlayers<2 || numOfPlayers>6)
     	goto Again;
-    int i;
+    
+	int i;
 	for(i=0; i<numOfPlayers; i++) {
-      printf("\nDetails of player %d:",i+1);
-      printf("\nName: ");
+      printf("\nEnter The Details Of Player %d:",i+1);
+      printf("\nName : ");
       scanf("%s", name);
       strcpy(players[i].name, name);
       col = get_player_color(i);
